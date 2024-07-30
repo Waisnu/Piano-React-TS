@@ -1,0 +1,231 @@
+/* General piano container */
+.piano-container {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    user-select: none;
+}
+
+/* White keys styling */
+.white-keys-container {
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+}
+
+.white {
+    width: 40px;
+    height: 150px;
+    background-color: white;
+    border: 1px solid black;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    transition: background-color 0.1s, transform 0.1s;
+    border-radius: 4px; 
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.white.pressed {
+    background-color: #ddd;
+    transform: scale(0.95);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
+}
+
+/* Black keys styling */
+.black-keys-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: flex-start;
+    pointer-events: none;
+    margin-left: 30px; 
+    z-index: 2;
+}
+
+.black {
+    width: 30px;
+    height: 100px;
+    background-color: black;
+    border: 1px solid #333;
+    box-sizing: border-box;
+    position: absolute;
+    cursor: pointer;
+    transition: background-color 0.1s, transform 0.1s;
+    border-radius: 2px; 
+}
+
+.black.pressed {
+    background-color: #555;
+    transform: scale(0.95);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
+}
+
+/* Adjust positioning for black keys */
+.black-keys-container .black {
+    position: absolute;
+}
+
+/* Positioning for each black key, considering its relative position on the white keys */
+.black-keys-container .black:nth-of-type(1) { left: calc(40px * 0.0); }
+.black-keys-container .black:nth-of-type(2) { left: calc(40px * 1.00); }
+.black-keys-container .black:nth-of-type(3) { left: calc(40px * 2.75); }
+.black-keys-container .black:nth-of-type(4) { left: calc(40px * 3.75); }
+.black-keys-container .black:nth-of-type(5) { left: calc(40px * 4.75); }
+.black-keys-container .black:nth-of-type(6) { left: calc(40px * 6.75); }
+.black-keys-container .black:nth-of-type(7) { left: calc(40px * 7.75); }
+.black-keys-container .black:nth-of-type(8) { left: calc(40px * 9.75); }
+.black-keys-container .black:nth-of-type(9) { left: calc(40px * 10.75); }
+.black-keys-container .black:nth-of-type(10) { left: calc(40px * 11.75); }
+.black-keys-container .black:nth-of-type(11) { left: calc(40px * 13.75); }
+.black-keys-container .black:nth-of-type(12) { left: calc(40px * 14.75); }
+.black-keys-container .black:nth-of-type(13) { left: calc(40px * 16.75); }
+.black-keys-container .black:nth-of-type(14) { left: calc(40px * 17.75); }
+.black-keys-container .black:nth-of-type(15) { left: calc(40px * 18.75); }
+.black-keys-container .black:nth-of-type(16) { left: calc(40px * 20.75); }
+.black-keys-container .black:nth-of-type(17) { left: calc(40px * 21.75); }
+.black-keys-container .black:nth-of-type(18) { left: calc(40px * 23.75); }
+.black-keys-container .black:nth-of-type(19) { left: calc(40px * 24.75); }
+.black-keys-container .black:nth-of-type(20) { left: calc(40px * 25.75); }
+.black-keys-container .black:nth-of-type(21) { left: calc(40px * 27.75); }
+.black-keys-container .black:nth-of-type(22) { left: calc(40px * 28.75); }
+.black-keys-container .black:nth-of-type(23) { left: calc(40px * 30.75); }
+.black-keys-container .black:nth-of-type(24) { left: calc(40px * 31.75); }
+.black-keys-container .black:nth-of-type(25) { left: calc(40px * 32.75); }
+
+
+
+
+.key-label {
+    position: absolute;
+    color: black;
+    font-size: 10px;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+
+.white .key-label {
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.black .key-label {
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+}
+
+
+
+/* General piano container */
+.piano-container {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    user-select: none;
+    overflow-x: auto; 
+}
+
+/* White keys styling */
+.white-keys-container {
+    display: flex;
+    align-items: center;
+}
+
+.white {
+    width: 40px;
+    height: 150px;
+    background-color: white;
+    border: 1px solid black;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    transition: background-color 0.1s, transform 0.1s;
+    border-radius: 4px; 
+}
+
+.white.pressed {
+    background-color: #ddd;
+    transform: scale(0.95);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
+}
+
+/* Black keys styling */
+.black-keys-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: flex-start;
+    pointer-events: none;
+    margin-left: 30px; 
+}
+
+.black {
+    width: 30px;
+    height: 100px;
+    background-color: black;
+    border: 1px solid #333;
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 2;
+    cursor: pointer;
+    transition: background-color 0.1s, transform 0.1s;
+    border-radius: 2px; 
+}
+
+.black.pressed {
+    background-color: #555;
+    transform: scale(0.95);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
+}
+
+/* Key label styling */
+.key-label {
+    position: absolute;
+    bottom: -20px; 
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: black;
+    text-align: center;
+}
+
+.key-shortcut {
+    font-size: 10px;
+    color: gray;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .white {
+        width: 30px; 
+        height: 120px;
+    }
+
+    .black {
+        width: 20px; 
+        height: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .white {
+        width: 25px; 
+        height: 100px;
+    }
+
+    .black {
+        width: 15px; 
+        height: 70px;
+    }
+}

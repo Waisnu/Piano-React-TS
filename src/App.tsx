@@ -4,7 +4,8 @@ import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Home from './pages/Home';
 import AboutUs from './pages/aboutUs';
-import Piano from './components/Piano/piano';
+import Piano from './pages/Piano';
+
 
 import './App.css';
 

@@ -13,7 +13,7 @@ const teamMembers = [
         name: 'Jhonn Vincent Arcipe',
         role: 'Software Engineer',
         work: '@Cube Asia Singapore',
-        workLink: 'https://cube.asia/', 
+        workLink: 'https://cube.asia/',
         course: 'BSIT-SE III',
         avatar: p1,
     },
@@ -21,7 +21,7 @@ const teamMembers = [
         name: 'Lyn Charisse Salig',
         role: 'Front-end Developer',
         work: '@Real Inbound Singapore',
-        workLink: 'https://www.realinboundconsulting.com/', 
+        workLink: 'https://www.realinboundconsulting.com/',
         course: 'BSIT-SE III',
         avatar: p2,
     },
@@ -45,7 +45,7 @@ const techStack = [
     },
     {
         name: 'DaisyUI',
-        logo: daisyUILogo,  
+        logo: daisyUILogo,
     },
     {
         name: 'TailwindCSS',
@@ -64,13 +64,69 @@ const AboutUs: React.FC = () => {
                     offers a seamless and intuitive interface for playing
                     beautiful melodies right from your browser.
                 </p>
+                <div className='text-base-content mt-4'>
+                    <h3 className='text-lg font-semibold mb-2'>References:</h3>
+                    <p className='text-gray-400'>
+                        <a
+                            href='https://github.com/Tonejs/audio'
+                            className='text-blue-500 hover:underline'
+                            target='_blank'
+                            rel='noopener noreferrer'
+                        >
+                            Audio Salamander
+                        </a>{' '}
+                        |{' '}
+                        <a
+                            href='https://musical-artifacts.com/artifacts/3386'
+                            className='text-blue-500 hover:underline'
+                            target='_blank'
+                            rel='noopener noreferrer'
+                        >
+                            Audio Sampler
+                        </a>{' '}
+                        |{' '}
+                        <a
+                            href='https://www.onlinepianist.com/virtual-piano'
+                            className='text-blue-500 hover:underline'
+                            target='_blank'
+                            rel='noopener noreferrer'
+                        >
+                            Inspiration
+                        </a>{' '}
+                        |{' '}
+                        <a
+                            href='https://github.com/Tonejs/Tone.js'
+                            className='text-blue-500 hover:underline'
+                            target='_blank'
+                            rel='noopener noreferrer'
+                        >
+                            Multimedia API
+                        </a>{' '}
+                        |{' '}
+                        <a
+                            href='https://webmidijs.org/'
+                            className='text-blue-500 hover:underline'
+                            target='_blank'
+                            rel='noopener noreferrer'
+                        >
+                            WebMIDI API
+                        </a>{' '}
+                        |{' '}
+                        <a
+                            href='https://tonejs.github.io/docs/15.0.4/classes/Sampler.html'
+                            className='text-blue-500 hover:underline'
+                            target='_blank'
+                            rel='noopener noreferrer'
+                        >
+                            Documentation
+                        </a>
+                    </p>
+                </div>
             </section>
 
             <section className='mb-12'>
-                <h2 className='text-5xl font-bold text-center mb-8'>
-                 Team
-                </h2>
-                <div className='flex justify-center space-x-8 gap-5 p-3'>
+                <h2 className='text-4xl font-bold text-center mb-4'>Team</h2>
+                <div className='flex flex-wrap justify-center gap-8 p-3'>
                     {teamMembers.map((member) => (
                         <div key={member.name} className='text-center'>
                             <img
@@ -85,8 +141,8 @@ const AboutUs: React.FC = () => {
                                 <a
                                     href={member.workLink}
                                     className='text-blue-400 hover:underline'
-                                    target='_blank' 
-                                    rel='noopener noreferrer' 
+                                    target='_blank'
+                                    rel='noopener noreferrer'
                                 >
                                     {member.work}
                                 </a>
@@ -98,16 +154,14 @@ const AboutUs: React.FC = () => {
             </section>
 
             <section>
-                <h2 className='text-5xl font-bold text-center mb-8'>
-                    Stack
-                </h2>
-                <div className='flex justify-center space-x-8'>
+               
+                <div className='flex flex-wrap justify-center gap-8'>
                     {techStack.map((tech) => (
                         <div key={tech.name} className='text-center'>
                             <img
                                 src={tech.logo}
                                 alt={tech.name}
-                                className=' logo w-16 h-16 mx-auto mb-4'
+                                className='w-16 h-16 mx-auto mb-4'
                             />
                             <p className='text-lg font-semibold'>{tech.name}</p>
                         </div>

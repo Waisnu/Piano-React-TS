@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
 
-const Input = ({ onSubmit }: { onSubmit: (name: string) => void }) => {
-    const [name, setName] = useState('');
+//session storage to handle submitted name 
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setName(e.target.value);
+interface InputProps {
+    onSubmit: (name: string) => void;
+}
+
+const Input: React.FC<InputProps> = ({ onSubmit }) => {
+
+    const [name, setName] = useState<string>('');
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setName(event.target.value);
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (name.trim()) {  
-            localStorage.setItem('userName', name);
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        if (name.trim()) {
             onSubmit(name);
+        } else {
+            console.error('Name cannot be empty');
         }
     };
 

@@ -1,12 +1,15 @@
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import bg from '../assets/bg.png';
 import Input from './input';
 
-const Hero = () => {
-    const navigate = useNavigate();
-
-    const handleNameSubmit = () => {
-        navigate('/next-page');
+const Hero: React.FC = () => {
+    // Define a placeholder function for onSubmit
+    const handleNameSubmit = (name: string) => {
+        if (name.trim()) {
+            console.log('Name submitted:', name);
+        } else {
+            console.error('Name cannot be empty');
+        }
     };
 
     return (

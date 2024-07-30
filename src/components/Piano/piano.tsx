@@ -1,151 +1,190 @@
-import React, { useEffect, useState } from 'react';
-import * as Tone from 'tone';
+import React, { useState} from 'react';
+import WhiteKeys from './Keys/WhiteKeys';
+import BlackKeys from './Keys/BlackKeys';
+import KeyboardEvents from './Keys/KeyboardEvents';
+import { sampler } from './sampler'; 
+import './piano.css';
 
-const notes = [
-    'C1',
-    'C#1',
-    'D1',
-    'D#1',
-    'E1',
-    'F1',
-    'F#1',
-    'G1',
-    'G#1',
-    'A1',
-    'A#1',
-    'B1',
-    'C2',
-    'C#2',
-    'D2',
-    'D#2',
-    'E2',
-    'F2',
-    'F#2',
-    'G2',
-    'G#2',
-    'A2',
-    'A#2',
-    'B2',
-    'C3',
-    'C#3',
-    'D3',
-    'D#3',
-    'E3',
-    'F3',
-    'F#3',
-    'G3',
-    'G#3',
-    'A3',
-    'A#3',
-    'B3',
-    'C4',
-    'C#4',
-    'D4',
-    'D#4',
-    'E4',
-    'F4',
-    'F#4',
-    'G4',
-    'G#4',
-    'A4',
-    'A#4',
-    'B4',
-    'C5',
-    'C#5',
-    'D5',
-    'D#5',
-    'E5',
-    'F5',
-    'F#5',
-    'G5',
-    'G#5',
-    'A5',
-    'A#5',
-    'B5',
-    'C6',
-    'C#6',
-    'D6',
-    'D#6',
-    'E6',
-    'F6',
-    'F#6',
-    'G6',
-    'G#6',
-    'A6',
-    'A#6',
-    'B6',
-    'C7',
-    'C#7',
-    'D7',
-    'D#7',
-    'E7',
-    'F7',
-    'F#7',
-    'G7',
-    'G#7',
-    'A7',
-    'A#7',
-    'B7',
-    'C8',
-];
+const noteToKeyMap: Record<string, string> = {
+    // White Keys
+    C2: 'Digit1', // 1
+    D2: 'Digit2', // 2
+    E2: 'Digit3', // 3
+    F2: 'Digit4', // 4
+    G2: 'Digit5', // 5
+    A2: 'Digit6', // 6
+    B2: 'Digit7', // 7
+    C3: 'Digit8', // 8
+    D3: 'Digit9', // 9
+    E3: 'Digit0', // 0
+    F3: 'KeyQ', // Q
+    G3: 'KeyW', // W
+    A3: 'KeyE', // E
+    B3: 'KeyR', // R
+    C4: 'KeyT', // T
+    D4: 'KeyY', // Y
+    E4: 'KeyU', // U
+    F4: 'KeyI', // I
+    G4: 'KeyO', // O
+    A4: 'KeyP', // P
+    B4: 'KeyA', // A
+    C5: 'KeyS', // S
+    D5: 'KeyD', // D
+    E5: 'KeyF', // F
+    F5: 'KeyG', // G
+    G5: 'KeyH', // H
+    A5: 'KeyJ', // J
+    B5: 'KeyK', // K
+    C6: 'KeyL', // L
+    D6: 'KeyZ', // Z
+    E6: 'KeyX', // X
+    F6: 'KeyC', // C
+    G6: 'KeyV', // V
+    A6: 'KeyB', // B
+    B6: 'KeyN', // N
+    C7: 'KeyM', // M
+    D7: 'Comma', // ,
+    C8: 'Period', // .
 
-const sampleUrls = {
-    C4: 'path/to/C4.mp3',
-    D4: 'path/to/D4.mp3',
-    // Add URLs for all the samples you have
+    // Black Keys
+    'C#2': 'Shift+Digit1', // Shift + 1
+    'D#2': 'Shift+Digit2', // Shift + 2
+    'F#2': 'Shift+Digit4', // Shift + 4
+    'G#2': 'Shift+Digit5', // Shift + 5
+    'A#2': 'Shift+Digit6', // Shift + 6
+    'C#3': 'Shift+Digit8', // Shift + 8
+    'D#3': 'Shift+Digit9', // Shift + 9
+    'F#3': 'Shift+KeyQ', // Shift + Q
+    'G#3': 'Shift+KeyW', // Shift + W
+    'A#3': 'Shift+KeyE', // Shift + E
+    'C#4': 'Shift+KeyT', // Shift + T
+    'D#4': 'Shift+KeyY', // Shift + Y
+    'F#4': 'Shift+KeyI', // Shift + I
+    'G#4': 'Shift+KeyO', // Shift + O
+    'A#4': 'Shift+KeyP', // Shift + P
+    'C#5': 'Shift+KeyS', // Shift + S
+    'D#5': 'Shift+KeyD', // Shift + D
+    'F#5': 'Shift+KeyG', // Shift + G
+    'G#5': 'Shift+KeyH', // Shift + H
+    'A#5': 'Shift+KeyJ', // Shift + J
+    'C#6': 'Shift+KeyL', // Shift + L
+    'D#6': 'Shift+KeyZ', // Shift + Z
+    'F#6': 'Shift+KeyC', // Shift + C
+    'G#6': 'Shift+KeyV', // Shift + V
+    'A#6': 'Shift+KeyB', // Shift + B
 };
 
 const Piano: React.FC = () => {
-    const [sampler, setSampler] = useState<Tone.Sampler | null>(null);
+    const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
+    const [mouseDown, setMouseDown] = useState<boolean>(false);
 
-    useEffect(() => {
-        const initSampler = async () => {
-            const newSampler = new Tone.Sampler({
-                urls: sampleUrls,
-                baseUrl: 'path/to/samples/', // Base URL for samples
-                onload: () => console.log('Sampler loaded'),
-                onerror: (error) =>
-                    console.error('Error loading samples', error),
-                attack: 0.1,
-                release: 0.5,
-                curve: 'exponential',
-            }).toDestination();
-
-            await Tone.start();
-            setSampler(newSampler);
-        };
-
-        initSampler();
-    }, []);
-
-    const playNote = (note: string) => {
-        if (sampler) {
+    const startNote = (note: string) => {
+        if (!pressedKeys.has(note)) {
+            pressedKeys.add(note);
             sampler.triggerAttack(note);
+            setPressedKeys(new Set(pressedKeys));
         }
     };
 
     const stopNote = (note: string) => {
-        if (sampler) {
+        if (pressedKeys.has(note)) {
+            pressedKeys.delete(note);
             sampler.triggerRelease(note);
+            setPressedKeys(new Set(pressedKeys));
         }
     };
 
+    const handleMouseUp = () => {
+        setMouseDown(false);
+        pressedKeys.forEach((note) => stopNote(note));
+    };
+
+    const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+        if (mouseDown) {
+            const target = event.target as HTMLButtonElement;
+            const note = target.getAttribute('data-note');
+            if (note) {
+                startNote(note);
+            }
+        }
+    };
+
+    const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+        event.preventDefault(); // Prevent default touch behavior
+        const touch = event.touches[0];
+        const target = document.elementFromPoint(
+            touch.clientX,
+            touch.clientY
+        ) as HTMLButtonElement;
+        const note = target?.getAttribute('data-note');
+        if (note) {
+            startNote(note);
+        }
+    };
+
+    const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+        event.preventDefault(); // Prevent default touch behavior
+        pressedKeys.forEach((note) => stopNote(note));
+    };
+
+    const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+        event.preventDefault(); // Prevent default touch behavior
+        const touch = event.touches[0];
+        const target = document.elementFromPoint(
+            touch.clientX,
+            touch.clientY
+        ) as HTMLButtonElement;
+        const note = target?.getAttribute('data-note');
+        if (note) {
+            startNote(note);
+        }
+    };
+
+    // Keyboard event handlers
+    const handleKeyDown = (event: KeyboardEvent) => {
+        const isShift = event.shiftKey;
+        const code = isShift ? `Shift+${event.code}` : event.code;
+         
+        const note = Object.keys(noteToKeyMap).find(
+            (key) => noteToKeyMap[key] === code
+        );
+        if (note) {
+            
+         startNote(note);
+        }    
+    };
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+        const isShift = event.shiftKey;
+        const code = isShift ? `Shift+${event.code}` : event.code;
+        const note = Object.keys(noteToKeyMap).find(
+            (key) => noteToKeyMap[key] === code
+        );
+        if (note) stopNote(note);
+    };
+
+    KeyboardEvents(handleKeyDown, handleKeyUp);
+
     return (
-        <div className='piano'>
-            <div className='piano-keys'>
-                {notes.map((note) => (
-                    <button
-                        key={note}
-                        onMouseDown={() => playNote(note)}
-                        onMouseUp={() => stopNote(note)}
-                        className={`piano-key ${
-                            note.includes('#') ? 'black-key' : 'white-key'
-                        }`}
-                    >
-                        {note}
-                    </button>
-                ))}
-            </div>
+        <div
+            className='piano-container'
+            onMouseDown={() => setMouseDown(true)}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleMouseMove}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            onTouchMove={handleTouchMove}
+        >
+            <WhiteKeys
+                startNote={startNote}
+                stopNote={stopNote}
+                pressedNotes={pressedKeys}
+            />
+            <BlackKeys
+                startNote={startNote}
+                stopNote={stopNote}
+                pressedNotes={pressedKeys}
+            />
         </div>
     );
 };
