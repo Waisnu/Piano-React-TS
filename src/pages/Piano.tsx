@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import PianoComponent from '../components/Piano/piano';
 
 const Piano = () => {
