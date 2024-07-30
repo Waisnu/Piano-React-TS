@@ -1,70 +1,151 @@
-import React, { useEffect, useRef } from 'react';
-import { Piano as TonePiano } from '@tonejs/piano';
-import './piano.css';
-import { JSX } from 'react/jsx-runtime';
+import React, { useEffect, useState } from 'react';
+import * as Tone from 'tone';
+
+const notes = [
+    'C1',
+    'C#1',
+    'D1',
+    'D#1',
+    'E1',
+    'F1',
+    'F#1',
+    'G1',
+    'G#1',
+    'A1',
+    'A#1',
+    'B1',
+    'C2',
+    'C#2',
+    'D2',
+    'D#2',
+    'E2',
+    'F2',
+    'F#2',
+    'G2',
+    'G#2',
+    'A2',
+    'A#2',
+    'B2',
+    'C3',
+    'C#3',
+    'D3',
+    'D#3',
+    'E3',
+    'F3',
+    'F#3',
+    'G3',
+    'G#3',
+    'A3',
+    'A#3',
+    'B3',
+    'C4',
+    'C#4',
+    'D4',
+    'D#4',
+    'E4',
+    'F4',
+    'F#4',
+    'G4',
+    'G#4',
+    'A4',
+    'A#4',
+    'B4',
+    'C5',
+    'C#5',
+    'D5',
+    'D#5',
+    'E5',
+    'F5',
+    'F#5',
+    'G5',
+    'G#5',
+    'A5',
+    'A#5',
+    'B5',
+    'C6',
+    'C#6',
+    'D6',
+    'D#6',
+    'E6',
+    'F6',
+    'F#6',
+    'G6',
+    'G#6',
+    'A6',
+    'A#6',
+    'B6',
+    'C7',
+    'C#7',
+    'D7',
+    'D#7',
+    'E7',
+    'F7',
+    'F#7',
+    'G7',
+    'G#7',
+    'A7',
+    'A#7',
+    'B7',
+    'C8',
+];
+
+const sampleUrls = {
+    C4: 'path/to/C4.mp3',
+    D4: 'path/to/D4.mp3',
+    // Add URLs for all the samples you have
+};
 
 const Piano: React.FC = () => {
-    const piano = useRef<TonePiano | null>(null);
+    const [sampler, setSampler] = useState<Tone.Sampler | null>(null);
 
     useEffect(() => {
-        piano.current = new TonePiano({
-            velocities: 5,
-        });
+        const initSampler = async () => {
+            const newSampler = new Tone.Sampler({
+                urls: sampleUrls,
+                baseUrl: 'path/to/samples/', // Base URL for samples
+                onload: () => console.log('Sampler loaded'),
+                onerror: (error) =>
+                    console.error('Error loading samples', error),
+                attack: 0.1,
+                release: 0.5,
+                curve: 'exponential',
+            }).toDestination();
 
-        piano.current.toDestination();
-        piano.current.load().then(() => {
-            console.log('Piano loaded!');
-        });
-
-        return () => {
-            piano.current?.dispose();
+            await Tone.start();
+            setSampler(newSampler);
         };
+
+        initSampler();
     }, []);
 
-    const handleKeyDown = (note: string) => {
-        piano.current?.keyDown({ note, velocity: 0.7 });
-    };
-
-    const handleKeyUp = (note: string) => {
-        piano.current?.keyUp({ note });
-    };
-
-    const renderKeys = () => {
-        const keys: JSX.Element[] = [];
-        const whiteKeys = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
-        const blackKeys = ['C#', 'D#', 'F#', 'G#', 'A#'];
-
-        for (let octave = 0; octave <= 7; octave++) {
-            whiteKeys.forEach((key) => {
-                keys.push(
-                    <div
-                        key={`${key}${octave}`}
-                        className='key white'
-                        onMouseDown={() => handleKeyDown(`${key}${octave}`)}
-                        onMouseUp={() => handleKeyUp(`${key}${octave}`)}
-                    />
-                );
-            });
-            blackKeys.forEach((key) => {
-                if (key !== 'E#' && key !== 'B#') {
-                    keys.push(
-                        <div
-                            key={`${key}${octave}`}
-                            className='key black'
-                            onMouseDown={() => handleKeyDown(`${key}${octave}`)}
-                            onMouseUp={() => handleKeyUp(`${key}${octave}`)}
-                        />
-                    );
-                }
-            });
+    const playNote = (note: string) => {
+        if (sampler) {
+            sampler.triggerAttack(note);
         }
+    };
 
-        return keys;
+    const stopNote = (note: string) => {
+        if (sampler) {
+            sampler.triggerRelease(note);
+        }
     };
 
     return (
         <div className='piano'>
-            <div className='keys'>{renderKeys()}</div>
+            <div className='piano-keys'>
+                {notes.map((note) => (
+                    <button
+                        key={note}
+                        onMouseDown={() => playNote(note)}
+                        onMouseUp={() => stopNote(note)}
+                        className={`piano-key ${
+                            note.includes('#') ? 'black-key' : 'white-key'
+                        }`}
+                    >
+                        {note}
+                    </button>
+                ))}
+            </div>
         </div>
     );
 };
