@@ -1,11 +1,22 @@
+import React, { useEffect, useState } from 'react';
 import PianoComponent from '../components/Piano/piano';
 
 const Piano = () => {
+    const [userName, setUserName] = useState<string | null>(null);
+
+    useEffect(() => {
+        // Fetch the name from session storage
+        const storedName = sessionStorage.getItem('userName');
+        setUserName(storedName);
+    }, []);
+
     return (
         <div className='p-10 max-w-full mx-auto bg-base-200'>
             <header className='text-center mb-10'>
                 <h1 className='text-3xl font-bold mb-10'>
-                    Welcome to the Virtual Piano!
+                    {userName
+                        ? `Welcome to the Virtual Piano, ${userName}!`
+                        : 'Welcome to the Virtual Piano!'}
                 </h1>
                 <p className='text-lg text-base-content '>
                     Use the keyboard or mouse to play notes on the piano. Each

@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-//session storage to handle submitted name 
+//session storage to handle submitted name
 
 interface InputProps {
     onSubmit: (name: string) => void;
 }
 
 const Input: React.FC<InputProps> = ({ onSubmit }) => {
-
     const [name, setName] = useState<string>('');
+    const navigate = useNavigate(); // Initialize navigate
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
     };
@@ -16,7 +18,11 @@ const Input: React.FC<InputProps> = ({ onSubmit }) => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (name.trim()) {
+            // Store the name in session storage
+            sessionStorage.setItem('userName', name);
             onSubmit(name);
+            // Navigate to the /piano route
+            navigate('/piano');
         } else {
             console.error('Name cannot be empty');
         }
