@@ -24,7 +24,7 @@ const Hero: React.FC = () => {
             <div className='hero-content text-neutral-content text-center'>
                 <div className='max-w-2xl'>
                     <h1 className='mb-10 text-9xl font-bold text-gray-300'>
-                        Piyano<span className='blink'>_</span>
+                        Pyano<span className='blink'>_</span>
                     </h1>
 
                     <p className='mb-5 text-gray-400'>

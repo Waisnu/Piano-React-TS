@@ -1,5 +1,7 @@
 import * as Tone from 'tone';
 
+// AUDIO SALAMANDER SAMPLES FROM TONEJS 
+
 
 export const sampleUrls = {
     "A0": "A0.mp3",
@@ -45,7 +47,7 @@ export const sampler = new Tone.Sampler({
     urls: sampleUrls,
     baseUrl: 'https://tonejs.github.io/audio/salamander/',
     onload: () => {
-        console.log('Sampler loaded');
+        console.log('Sampler loaded, ready to play !');
     },
     onerror: (error) => {
         console.error('Error loading samples:', error);

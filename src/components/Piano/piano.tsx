@@ -78,6 +78,10 @@ const Piano: React.FC = () => {
     const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
     const [mouseDown, setMouseDown] = useState<boolean>(false);
 
+    // Audio event handlers
+
+
+    // Start and stop note functions for audio playback
     const startNote = (note: string) => {
         if (!pressedKeys.has(note)) {
             pressedKeys.add(note);
@@ -96,7 +100,7 @@ const Piano: React.FC = () => {
 
     const handleMouseUp = () => {
         setMouseDown(false);
-        pressedKeys.forEach((note) => stopNote(note));
+        pressedKeys.forEach((note) => stopNote(note)); //
     };
 
     const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -153,6 +157,8 @@ const Piano: React.FC = () => {
          startNote(note);
         }    
     };
+
+    // Stop note when key is released
 
     const handleKeyUp = (event: KeyboardEvent) => {
         const isShift = event.shiftKey;

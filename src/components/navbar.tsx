@@ -51,7 +51,10 @@ const navbar = () => {
 
             <div className='navbar-end'>
                 <button className='btn btn-ghost btn-circle'>
-                    <a href='https://github.com/Waisnu' target='_blank'>
+                    <a
+                        href='https://github.com/Waisnu/Piano-React-TS'
+                        target='_blank'
+                    >
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
                             x='0px'
@@ -112,7 +115,10 @@ const navbar = () => {
 
                 <button className='btn btn-ghost btn-circle'>
                     <div className='indicator'>
-                        <a href='https://www.linkedin.com/in/jhonnvincentarcipe/' target='_blank'>
+                        <a
+                            href='https://www.linkedin.com/in/jhonnvincentarcipe/'
+                            target='_blank'
+                        >
                             <svg
                                 xmlns='http://www.w3.org/2000/svg'
                                 x='0px'
