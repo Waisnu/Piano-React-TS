@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import WhiteKeys from './Keys/WhiteKeys';
 import BlackKeys from './Keys/BlackKeys';
 import KeyboardEvents from './Keys/KeyboardEvents';
-import { sampler } from './sampler'; 
+import { sampler } from './sampler';
 import './piano.css';
 
 const noteToKeyMap: Record<string, string> = {
@@ -87,6 +87,7 @@ const Piano: React.FC = () => {
             pressedKeys.add(note);
             sampler.triggerAttack(note);
             setPressedKeys(new Set(pressedKeys));
+
         }
     };
 
@@ -148,14 +149,14 @@ const Piano: React.FC = () => {
     const handleKeyDown = (event: KeyboardEvent) => {
         const isShift = event.shiftKey;
         const code = isShift ? `Shift+${event.code}` : event.code;
-         
+
         const note = Object.keys(noteToKeyMap).find(
             (key) => noteToKeyMap[key] === code
         );
         if (note) {
-            
+
          startNote(note);
-        }    
+        }
     };
 
     // Stop note when key is released
@@ -176,7 +177,7 @@ const Piano: React.FC = () => {
             className='piano-container'
             onMouseDown={() => setMouseDown(true)}
             onMouseUp={handleMouseUp}
-            onMouseMove={handleMouseMove}
+            onMouseMove={handleMouseMove}b
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
             onTouchMove={handleTouchMove}

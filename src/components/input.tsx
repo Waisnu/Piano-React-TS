@@ -26,6 +26,8 @@ const Input: React.FC<InputProps> = ({ onSubmit }) => {
         } else {
             console.error('Name cannot be empty');
         }
+
+
     };
 
     return (

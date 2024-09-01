@@ -17,14 +17,14 @@ const teamMembers = [
         course: 'BSIT-SE III',
         avatar: p1,
     },
-    {
-        name: 'Lyn Charisse Salig',
-        role: 'Front-end Developer',
-        work: '@Real Inbound Singapore',
-        workLink: 'https://www.realinboundconsulting.com/',
-        course: 'BSIT-SE III',
-        avatar: p2,
-    },
+    // {
+    //     name: 'Lyn Charisse Salig',
+    //     role: 'Front-end Developer',
+    //     work: '@Real Inbound Singapore',
+    //     workLink: 'https://www.realinboundconsulting.com/',
+    //     course: 'BSIT-SE III',
+    //     avatar: p2,
+    // },
 ];
 const techStack = [
     {
@@ -125,7 +125,7 @@ const AboutUs: React.FC = () => {
             </section>
 
             <section className='mb-12'>
-                <h2 className='text-4xl font-bold text-center mb-4'>Team</h2>
+                <h2 className='text-4xl font-bold text-center mb-4'></h2>
                 <div className='flex flex-wrap justify-center gap-8 p-3'>
                     {teamMembers.map((member) => (
                         <div key={member.name} className='text-center'>
@@ -154,7 +154,7 @@ const AboutUs: React.FC = () => {
             </section>
 
             <section>
-               
+
                 <div className='flex flex-wrap justify-center gap-8'>
                     {techStack.map((tech) => (
                         <div key={tech.name} className='text-center'>
