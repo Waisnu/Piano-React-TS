@@ -16,15 +16,7 @@ const teamMembers = [
         workLink: 'https://cube.asia/',
         course: 'BSIT-SE III',
         avatar: p1,
-    },
-    // {
-    //     name: 'Lyn Charisse Salig',
-    //     role: 'Front-end Developer',
-    //     work: '@Real Inbound Singapore',
-    //     workLink: 'https://www.realinboundconsulting.com/',
-    //     course: 'BSIT-SE III',
-    //     avatar: p2,
-    // },
+    }
 ];
 const techStack = [
     {
