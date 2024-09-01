@@ -1,6 +1,5 @@
 import React from 'react';
 import p1 from '../assets/p1.jpg';
-import p2 from '../assets/p2.jpg';
 import viteLogo from '../assets/vite.svg';
 import reactLogo from '../assets/react.svg';
 import typeScriptLogo from '../assets/typescript.svg';
