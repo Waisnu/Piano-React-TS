@@ -177,7 +177,7 @@ const Piano: React.FC = () => {
             className='piano-container'
             onMouseDown={() => setMouseDown(true)}
             onMouseUp={handleMouseUp}
-            onMouseMove={handleMouseMove}b
+            onMouseMove={handleMouseMove}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
             onTouchMove={handleTouchMove}
