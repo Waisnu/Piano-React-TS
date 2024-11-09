@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import WhiteKeys from './Keys/WhiteKeys';
 import BlackKeys from './Keys/BlackKeys';
 import KeyboardEvents from './Keys/KeyboardEvents';
@@ -78,16 +78,11 @@ const Piano: React.FC = () => {
     const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
     const [mouseDown, setMouseDown] = useState<boolean>(false);
 
-    // Audio event handlers
-
-
-    // Start and stop note functions for audio playback
     const startNote = (note: string) => {
         if (!pressedKeys.has(note)) {
             pressedKeys.add(note);
             sampler.triggerAttack(note);
             setPressedKeys(new Set(pressedKeys));
-
         }
     };
 
@@ -101,7 +96,7 @@ const Piano: React.FC = () => {
 
     const handleMouseUp = () => {
         setMouseDown(false);
-        pressedKeys.forEach((note) => stopNote(note)); //
+        pressedKeys.forEach((note) => stopNote(note));
     };
 
     const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -115,7 +110,7 @@ const Piano: React.FC = () => {
     };
 
     const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
-        event.preventDefault(); // Prevent default touch behavior
+        event.preventDefault();
         const touch = event.touches[0];
         const target = document.elementFromPoint(
             touch.clientX,
@@ -128,12 +123,12 @@ const Piano: React.FC = () => {
     };
 
     const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
-        event.preventDefault(); // Prevent default touch behavior
+        event.preventDefault();
         pressedKeys.forEach((note) => stopNote(note));
     };
 
     const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
-        event.preventDefault(); // Prevent default touch behavior
+        event.preventDefault();
         const touch = event.touches[0];
         const target = document.elementFromPoint(
             touch.clientX,
@@ -145,21 +140,16 @@ const Piano: React.FC = () => {
         }
     };
 
-    // Keyboard event handlers
     const handleKeyDown = (event: KeyboardEvent) => {
         const isShift = event.shiftKey;
         const code = isShift ? `Shift+${event.code}` : event.code;
-
         const note = Object.keys(noteToKeyMap).find(
             (key) => noteToKeyMap[key] === code
         );
         if (note) {
-
-         startNote(note);
+            startNote(note);
         }
     };
-
-    // Stop note when key is released
 
     const handleKeyUp = (event: KeyboardEvent) => {
         const isShift = event.shiftKey;

@@ -31,17 +31,17 @@ const navbar = () => {
                     >
                         <li>
                             <Link to={'/'}>
-                                <a>Home</a>
+                                Home
                             </Link>
                         </li>
                         <li>
                             <Link to={'/piano'}>
-                                <a>Piano</a>
+                                Piano
                             </Link>
                         </li>
                         <li>
                             <Link to='/about-us'>
-                                <a>About</a>
+                             About
                             </Link>
                         </li>
                     </ul>
