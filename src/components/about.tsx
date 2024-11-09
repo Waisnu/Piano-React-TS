@@ -1,9 +1,9 @@
 import React from 'react';
 import p1 from '../assets/p1.jpg';
-import viteLogo from '../assets/vite.svg';
 import reactLogo from '../assets/react.svg';
 import typeScriptLogo from '../assets/typescript.svg';
 import tonejsLogo from '../assets/js.svg';
+import viteLogo from '../assets/vite.svg';
 import daisyUILogo from '../assets/daisy.png';
 import tailwindcssLogo from '../assets/tailwind.svg';
 
